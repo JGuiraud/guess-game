@@ -4,19 +4,27 @@ $(document).ready(function () {
    console.log("nombre Aléatoire", nombreAleatoire);
    var essais = 0;
 
+   function newAleatoire() {
+      nombreAleatoire = Math.floor(Math.random() * 11);
+      essais = 0;
+   }
+
    $("#valider").on("click", function () {
       essais += 1; // essais++ ou essais = essais + 1
       console.log("nombre d'essais", essais);
       var nombreSaisi = $('#number').val();
       if (nombreSaisi.length !== 0) {
          if (nombreAleatoire == nombreSaisi) {
-            console.log("victoire");
+            $("#réponse").html("victoire");
+            $("#valider").hide();
+            $("#rejouer").show();
+            // $("#réponse").html("");
          }
          if (nombreAleatoire < nombreSaisi && essais < 4) {
-            console.log("c'est plus petit");
+            $("#réponse").html("c'est plus petit");
          }
          if (nombreAleatoire > nombreSaisi && essais < 4) {
-            console.log("c'est plus grand");
+            $("#réponse").html("c'est plus grand");
          }
          if (essais >= 3) {
             $("#valider").hide();
@@ -29,13 +37,13 @@ $(document).ready(function () {
    });
 
    $("#rejouer").on("click", function () {
-      nombreAleatoire = Math.floor(Math.random() * 11);
-      console.log("nouveau nombre aléatoire", nombreAleatoire);
-      essais = 0;
-      console.log("nouveaux essais", essais);
-      $("#rejouer").hide();
+      $("#réponse").html("");
       $("#valider").show();
+      $("#rejouer").hide();
       $("#number").val("");
+      newAleatoire();
    })
+
+
 
 });
